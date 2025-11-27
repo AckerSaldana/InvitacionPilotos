@@ -7,30 +7,43 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Minimal particle for performance
-const ParticleField = () => {
-  const particles = useRef([...Array(12)].map(() => ({
+// Twinkling star field background
+const StarField = () => {
+  const stars = useRef([...Array(150)].map(() => ({
     x: Math.random() * 100,
     y: Math.random() * 100,
-    size: Math.random() * 3 + 1,
-    delay: Math.random() * 5,
+    size: Math.random() * 2 + 1,
+    duration: Math.random() * 3 + 2,
   })));
 
   return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.current.map((p, i) => (
-        <div
-          key={i}
-          className="particle absolute rounded-full bg-yellow-400/30"
-          style={{
-            left: `${p.x}%`,
-            top: `${p.y}%`,
-            width: `${p.size}px`,
-            height: `${p.size}px`,
-          }}
-        />
-      ))}
-    </div>
+    <>
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes twinkle {
+          0% { opacity: 0.2; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1.2); }
+          100% { opacity: 0.2; transform: scale(0.8); }
+        }
+        .star {
+          animation: twinkle var(--duration) ease-in-out infinite;
+        }
+      `}} />
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        {stars.current.map((star, i) => (
+          <div
+            key={i}
+            className="star absolute rounded-full bg-white opacity-80"
+            style={{
+              left: `${star.x}vw`,
+              top: `${star.y}vh`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              '--duration': `${star.duration}s`,
+            }}
+          />
+        ))}
+      </div>
+    </>
   );
 };
 
@@ -176,8 +189,18 @@ const WelcomeOverlay = ({ onEnter, onTransitionComplete, isExiting = false }) =>
     });
   };
 
+  // Generate stars once for welcome overlay
+  const welcomeStars = useRef([...Array(150)].map(() => ({
+    x: Math.random() * 100,
+    y: Math.random() * 100,
+    size: Math.random() * 2 + 1,
+    duration: Math.random() * 3 + 2,
+  })));
+
   return (
-    <div ref={overlayRef} className="fixed inset-0 z-[100] bg-slate-950 overflow-hidden">
+    <div ref={overlayRef} className="fixed inset-0 z-[100] overflow-hidden" style={{
+      background: 'radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)',
+    }}>
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Inter:wght@300;400;500;600&display=swap');
         .font-cinzel { font-family: 'Cinzel', serif; }
@@ -195,28 +218,28 @@ const WelcomeOverlay = ({ onEnter, onTransitionComplete, isExiting = false }) =>
           0% { background-position: 200% center; }
           100% { background-position: -200% center; }
         }
+        @keyframes twinkle-welcome {
+          0% { opacity: 0.2; transform: scale(0.8); }
+          50% { opacity: 1; transform: scale(1.2); }
+          100% { opacity: 0.2; transform: scale(0.8); }
+        }
+        .welcome-star {
+          animation: twinkle-welcome var(--duration) ease-in-out infinite;
+        }
       `}} />
 
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-900/50 to-slate-950" />
-
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 opacity-[0.02]" style={{
-        backgroundImage: `linear-gradient(rgba(234,179,8,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(234,179,8,0.5) 1px, transparent 1px)`,
-        backgroundSize: '60px 60px',
-      }} />
-
-      {/* Floating particles */}
+      {/* Twinkling stars background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(8)].map((_, i) => (
+        {welcomeStars.current.map((star, i) => (
           <div
             key={i}
-            className="welcome-particle absolute rounded-full bg-yellow-500/20"
+            className="welcome-star absolute rounded-full bg-white opacity-80"
             style={{
-              width: `${Math.random() * 4 + 2}px`,
-              height: `${Math.random() * 4 + 2}px`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
+              left: `${star.x}vw`,
+              top: `${star.y}vh`,
+              width: `${star.size}px`,
+              height: `${star.size}px`,
+              '--duration': `${star.duration}s`,
             }}
           />
         ))}
@@ -250,7 +273,7 @@ const WelcomeOverlay = ({ onEnter, onTransitionComplete, isExiting = false }) =>
         </h1>
 
         {/* Subtitle */}
-        <p ref={subtitleRef} className="font-cinzel text-[10px] md:text-xs tracking-[0.3em] text-yellow-400/50 uppercase mb-12 md:mb-16">
+        <p ref={subtitleRef} className="font-cinzel text-sm md:text-base lg:text-lg tracking-[0.3em] text-yellow-400/50 uppercase mb-12 md:mb-16">
           Sindicato Nacional de Pilotos de Puerto
         </p>
 
@@ -431,14 +454,12 @@ export default function App() {
         }
       `}} />
 
-      {/* Background layers */}
-      <div className="fixed inset-0 bg-gradient-to-b from-slate-950 via-slate-900 to-blue-950/50 z-[-2]" />
-      <div className="fixed inset-0 opacity-[0.015] z-[-1]" style={{
-        backgroundImage: `radial-gradient(circle at 1px 1px, rgba(234,179,8,0.8) 1px, transparent 0)`,
-        backgroundSize: '40px 40px',
+      {/* Background layers - Dark blue radial gradient like starry night */}
+      <div className="fixed inset-0 z-[-2]" style={{
+        background: 'radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%)',
       }} />
 
-      <ParticleField />
+      <StarField />
       <MusicToggle audioRef={audioRef} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
 
       {/* Hero Section */}
@@ -458,10 +479,10 @@ export default function App() {
 
         {/* Organization Name */}
         <div className="hero-animate">
-          <h2 className="font-cinzel text-sm md:text-base lg:text-lg tracking-[0.25em] text-yellow-400/80 uppercase">
+          <h2 className="font-cinzel text-lg md:text-xl lg:text-2xl tracking-[0.25em] text-yellow-400/80 uppercase">
             Sindicato Nacional de Pilotos de Puerto
           </h2>
-          <p className="font-body text-xs md:text-sm tracking-[0.2em] text-slate-500 mt-2">
+          <p className="font-body text-sm md:text-base lg:text-lg tracking-[0.2em] text-slate-500 mt-2">
             Delegación Tampico
           </p>
         </div>
@@ -474,7 +495,7 @@ export default function App() {
         </div>
 
         {/* Invitation Text */}
-        <p className="hero-animate font-body text-xs md:text-sm tracking-[0.4em] text-slate-500 uppercase mb-6">
+        <p className="hero-animate font-body text-sm md:text-base lg:text-lg tracking-[0.4em] text-slate-500 uppercase mb-6">
           Le invita cordialmente a su
         </p>
 
@@ -508,21 +529,21 @@ export default function App() {
           {/* Date & Time */}
           <div className="scroll-reveal text-center mb-16">
             <div className="inline-flex flex-col items-center">
-              <span className="font-body text-[10px] tracking-[0.3em] text-yellow-500/60 uppercase mb-4">Fecha del Evento</span>
+              <span className="font-body text-xs md:text-sm tracking-[0.3em] text-yellow-500/60 uppercase mb-4">Fecha del Evento</span>
               <div className="flex items-center gap-4 mb-3">
-                <Calendar size={24} className="text-yellow-500/70" />
-                <span className="font-cinzel text-3xl md:text-4xl lg:text-5xl text-white font-light">
+                <Calendar size={28} className="text-yellow-500/70" />
+                <span className="font-cinzel text-4xl md:text-5xl lg:text-6xl text-white font-light">
                   13 de Diciembre
                 </span>
               </div>
-              <span className="font-cinzel text-xl md:text-2xl text-yellow-400/80">2025</span>
+              <span className="font-cinzel text-2xl md:text-3xl text-yellow-400/80">2025</span>
             </div>
           </div>
 
           {/* Time */}
           <div className="scroll-reveal flex justify-center items-center gap-3 mb-16">
-            <Clock size={18} className="text-yellow-500/50" />
-            <span className="font-body text-lg md:text-xl text-slate-400 tracking-wider">19:00 hrs</span>
+            <Clock size={22} className="text-yellow-500/50" />
+            <span className="font-body text-xl md:text-2xl lg:text-3xl text-slate-400 tracking-wider">19:00 hrs</span>
           </div>
 
           {/* Divider */}
@@ -534,12 +555,12 @@ export default function App() {
 
           {/* Location */}
           <div className="scroll-reveal text-center mb-10">
-            <span className="font-body text-[10px] tracking-[0.3em] text-yellow-500/60 uppercase mb-4 block">Lugar</span>
+            <span className="font-body text-xs md:text-sm tracking-[0.3em] text-yellow-500/60 uppercase mb-4 block">Lugar</span>
             <div className="flex items-center justify-center gap-3 mb-4">
-              <MapPin size={24} className="text-yellow-500/70" />
-              <span className="font-cinzel text-2xl md:text-3xl text-white">Salón de Eventos Charmed</span>
+              <MapPin size={28} className="text-yellow-500/70" />
+              <span className="font-cinzel text-3xl md:text-4xl text-white">Salón de Eventos Charmed</span>
             </div>
-            <p className="font-body text-sm md:text-base text-slate-500 leading-relaxed max-w-md mx-auto">
+            <p className="font-body text-base md:text-lg text-slate-500 leading-relaxed max-w-md mx-auto">
               Calle Av. Yucatán #100, Col. Unidad Nacional<br/>
               Cd. Madero, Tamaulipas
             </p>
@@ -564,7 +585,7 @@ export default function App() {
       <section className="relative py-20 md:py-28 px-6 bg-slate-900/30">
         <div className="max-w-lg mx-auto space-y-6">
 
-          <h3 className="scroll-reveal font-cinzel text-center text-sm tracking-[0.2em] text-yellow-500/60 uppercase mb-10">
+          <h3 className="scroll-reveal font-cinzel text-center text-base md:text-lg tracking-[0.2em] text-yellow-500/60 uppercase mb-10">
             Agregar a Calendario
           </h3>
 
@@ -586,7 +607,7 @@ export default function App() {
             </button>
           </div>
 
-          <h3 className="scroll-reveal font-cinzel text-center text-sm tracking-[0.2em] text-yellow-500/60 uppercase mt-12 mb-6">
+          <h3 className="scroll-reveal font-cinzel text-center text-base md:text-lg tracking-[0.2em] text-yellow-500/60 uppercase mt-12 mb-6">
             Compartir
           </h3>
 
@@ -616,13 +637,13 @@ export default function App() {
       <footer className="py-16 text-center">
         <div className="flex justify-center items-center gap-4 mb-6">
           <div className="h-px w-12 bg-yellow-500/20" />
-          <Anchor size={14} className="text-yellow-500/30" />
+          <Anchor size={16} className="text-yellow-500/30" />
           <div className="h-px w-12 bg-yellow-500/20" />
         </div>
-        <p className="font-script text-2xl md:text-3xl text-yellow-500/40 mb-2">
+        <p className="font-script text-3xl md:text-4xl text-yellow-500/40 mb-2">
           Los esperamos
         </p>
-        <p className="font-body text-slate-600 text-xs tracking-widest uppercase">
+        <p className="font-body text-slate-600 text-sm md:text-base tracking-widest uppercase">
           Sindicato Nacional de Pilotos de Puerto
         </p>
       </footer>

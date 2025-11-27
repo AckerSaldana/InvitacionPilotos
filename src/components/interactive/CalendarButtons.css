@@ -1,0 +1,43 @@
+.calendar-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.calendar-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 300px;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.calendar-button.google {
+  background: var(--sea-foam);
+  color: var(--cream);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.calendar-button.ics {
+  background: transparent;
+  color: var(--cream-soft);
+  border: 1px solid rgba(250, 248, 245, 0.2);
+}
+
+@media (min-width: 480px) {
+  .calendar-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .calendar-button {
+    width: auto;
+    max-width: none;
+  }
+}

@@ -1,0 +1,75 @@
+.music-toggle {
+  position: fixed;
+  bottom: var(--space-lg);
+  right: var(--space-lg);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: var(--navy-primary);
+  color: var(--cream-soft);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-lg);
+}
+
+.music-toggle:hover {
+  color: var(--gold-primary);
+  border-color: var(--gold-primary);
+}
+
+.music-toggle.playing {
+  color: var(--gold-primary);
+  border-color: var(--gold-primary);
+}
+
+.music-toggle:disabled {
+  opacity: 0.5;
+  cursor: wait;
+}
+
+.music-waves {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 16px;
+}
+
+.wave-bar {
+  width: 3px;
+  background: var(--gold-primary);
+  border-radius: 1px;
+  animation: wave-bar 0.5s ease-in-out infinite;
+}
+
+.wave-bar:nth-child(1) {
+  height: 40%;
+  animation-delay: 0s;
+}
+
+.wave-bar:nth-child(2) {
+  height: 70%;
+  animation-delay: 0.15s;
+}
+
+.wave-bar:nth-child(3) {
+  height: 50%;
+  animation-delay: 0.3s;
+}
+
+@keyframes wave-bar {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.5);
+  }
+}
+
+@media (min-width: 768px) {
+  .music-toggle {
+    bottom: var(--space-xl);
+    right: var(--space-xl);
+  }
+}

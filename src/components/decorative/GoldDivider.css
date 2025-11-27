@@ -1,0 +1,40 @@
+.gold-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  margin: var(--space-xl) 0;
+  width: 100%;
+}
+
+.gold-divider-line {
+  flex: 1;
+  max-width: 120px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--gold-primary) 50%,
+    transparent 100%
+  );
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.gold-divider-icon {
+  color: var(--gold-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+@media (min-width: 768px) {
+  .gold-divider-line {
+    max-width: 180px;
+  }
+
+  .gold-divider-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+}

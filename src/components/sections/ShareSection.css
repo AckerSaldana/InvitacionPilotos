@@ -1,0 +1,11 @@
+.share-section {
+  padding: var(--space-md) 0;
+}
+
+.share-group {
+  margin-bottom: var(--space-xl);
+}
+
+.share-group:last-child {
+  margin-bottom: 0;
+}

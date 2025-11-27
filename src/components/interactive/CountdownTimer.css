@@ -1,0 +1,77 @@
+.countdown-section {
+  text-align: center;
+  padding: var(--space-md) 0;
+}
+
+.countdown-label {
+  font-size: clamp(0.875rem, 2.5vw, 1rem);
+  color: var(--cream-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  margin-bottom: var(--space-md);
+}
+
+.countdown-timer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.countdown-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.countdown-value {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.countdown-unit-label {
+  font-size: clamp(0.625rem, 2vw, 0.75rem);
+  color: var(--gold-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: var(--space-xs);
+}
+
+.countdown-separator {
+  position: absolute;
+  right: -0.5rem;
+  top: 0.5rem;
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: var(--gold-primary);
+  opacity: 0.5;
+}
+
+.countdown-expired {
+  text-align: center;
+  padding: var(--space-lg);
+}
+
+.countdown-expired p {
+  font-family: var(--font-heading);
+  font-size: clamp(1.25rem, 4vw, 1.75rem);
+  color: var(--gold-primary);
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .countdown-timer {
+    gap: var(--space-md);
+  }
+
+  .countdown-separator {
+    right: -1rem;
+  }
+}

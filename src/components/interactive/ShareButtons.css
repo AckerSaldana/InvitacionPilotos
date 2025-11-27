@@ -1,0 +1,49 @@
+.share-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.share-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+  width: 100%;
+  max-width: 300px;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.share-button.whatsapp {
+  background: #25D366;
+  color: white;
+}
+
+.share-button.copy {
+  background: var(--sea-foam);
+  color: var(--cream);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.share-button.native {
+  background: transparent;
+  color: var(--cream-soft);
+  border: 1px solid rgba(250, 248, 245, 0.2);
+}
+
+@media (min-width: 480px) {
+  .share-buttons {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .share-button {
+    width: auto;
+    max-width: none;
+  }
+}

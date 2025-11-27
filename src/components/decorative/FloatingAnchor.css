@@ -1,0 +1,33 @@
+.floating-anchor {
+  position: fixed;
+  right: 5%;
+  top: 15%;
+  color: var(--gold-primary);
+  opacity: 0.15;
+  animation: float 8s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 2;
+}
+
+@media (min-width: 768px) {
+  .floating-anchor {
+    right: 10%;
+    top: 20%;
+  }
+
+  .floating-anchor svg {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .floating-anchor {
+    right: 15%;
+  }
+
+  .floating-anchor svg {
+    width: 100px;
+    height: 100px;
+  }
+}

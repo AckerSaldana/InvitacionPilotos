@@ -1,0 +1,223 @@
+.rsvp-section {
+  text-align: center;
+  padding: var(--space-md) 0;
+}
+
+.rsvp-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-md) var(--space-xl);
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+  color: var(--navy-dark);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: var(--shadow-gold);
+}
+
+/* Confirmed State */
+.rsvp-confirmed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-lg);
+  background: var(--sea-foam);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.rsvp-confirmed-icon {
+  color: var(--gold-primary);
+  padding: var(--space-md);
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: var(--radius-full);
+}
+
+.rsvp-confirmed-message {
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--cream);
+  margin: 0;
+}
+
+.rsvp-confirmed-name {
+  font-weight: 600;
+  color: var(--gold-primary);
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+.rsvp-confirmed-guests {
+  color: var(--cream-soft);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.rsvp-modify-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--gold-primary);
+  border: 1px solid var(--gold-primary);
+  border-radius: var(--radius-full);
+  font-size: 0.875rem;
+  margin-top: var(--space-sm);
+}
+
+/* Modal */
+.rsvp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 22, 40, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  z-index: 100;
+}
+
+.rsvp-modal {
+  background: var(--navy-primary);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.rsvp-modal-close {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  color: var(--cream-soft);
+  padding: var(--space-xs);
+}
+
+.rsvp-modal-close:hover {
+  color: var(--cream);
+}
+
+.rsvp-modal-title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--gold-primary);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+}
+
+/* Form */
+.rsvp-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.rsvp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  text-align: left;
+}
+
+.rsvp-form-group label {
+  font-size: 0.875rem;
+  color: var(--cream-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rsvp-form-group input[type="text"],
+.rsvp-form-group input[type="number"] {
+  padding: var(--space-md);
+  background: var(--sea-foam);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+}
+
+.rsvp-form-group input:focus {
+  outline: none;
+  border-color: var(--gold-primary);
+}
+
+.rsvp-form-group input::placeholder {
+  color: rgba(250, 248, 245, 0.4);
+}
+
+/* Radio Group */
+.rsvp-radio-group {
+  display: flex;
+  gap: var(--space-md);
+}
+
+.rsvp-radio-option {
+  flex: 1;
+  cursor: pointer;
+}
+
+.rsvp-radio-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rsvp-radio-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: var(--sea-foam);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--cream-soft);
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+}
+
+.rsvp-radio-option input:checked + .rsvp-radio-label {
+  background: rgba(212, 175, 55, 0.2);
+  border-color: var(--gold-primary);
+  color: var(--gold-primary);
+}
+
+/* Form Actions */
+.rsvp-form-actions {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-md);
+}
+
+.rsvp-cancel-button {
+  flex: 1;
+  padding: var(--space-md);
+  background: transparent;
+  color: var(--cream-soft);
+  border: 1px solid rgba(250, 248, 245, 0.3);
+  border-radius: var(--radius-md);
+}
+
+.rsvp-cancel-button:hover {
+  background: var(--sea-foam);
+}
+
+.rsvp-submit-button {
+  flex: 1;
+  padding: var(--space-md);
+  background: linear-gradient(135deg, var(--gold-dark), var(--gold-primary));
+  color: var(--navy-dark);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.rsvp-submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
